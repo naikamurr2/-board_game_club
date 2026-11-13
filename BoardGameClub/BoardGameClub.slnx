@@ -2,6 +2,8 @@
   <Project Path="BoardGameClub.Android/BoardGameClub.Android.csproj">
     <Deploy />
   </Project>
+  <Project Path="BoardGameClub.ConsoleApp/BoardGameClub.ConsoleApp.csproj" />
+  <Project Path="BoardGameClub.Data/BoardGameClub.Data.csproj" />
   <Project Path="BoardGameClub.Desktop/BoardGameClub.Desktop.csproj" />
   <Project Path="BoardGameClub/BoardGameClub.csproj" />
 </Solution>
