@@ -16,52 +16,139 @@
 
 		<!-- Экран 1: клиенты -->
 		<TabItem Header="Клиенты">
-			<ListBox x:Name="ClientsList" Margin="8">
-				<ListBox.ItemTemplate>
-					<DataTemplate x:DataType="data:Client">
-						<StackPanel Spacing="2" Margin="0,4">
-							<TextBlock Text="{Binding FullName}" FontWeight="Bold" />
-							<TextBlock Text="{Binding Phone, TargetNullValue='Телефон не указан'}" />
-							<TextBlock Text="{Binding RegistrationDate, StringFormat='В клубе с {0:dd.MM.yyyy}'}" />
-							<TextBlock Text="Есть клубная карта" IsVisible="{Binding HasClubCard}" />
-						</StackPanel>
-					</DataTemplate>
-				</ListBox.ItemTemplate>
-			</ListBox>
+			<ScrollViewer>
+				<StackPanel Margin="8" Spacing="8">
+
+					<StackPanel Spacing="4" MaxWidth="300" HorizontalAlignment="Left">
+						<TextBlock Text="Имя и фамилия *" />
+						<TextBox x:Name="ClientNameBox" />
+						<TextBlock Text="Телефон" />
+						<TextBox x:Name="ClientPhoneBox" />
+						<TextBlock Text="Дата регистрации *" />
+						<CalendarDatePicker x:Name="ClientDatePicker" />
+						<CheckBox x:Name="ClientCardCheck" Content="Есть клубная карта" />
+						<WrapPanel>
+							<Button Content="Добавить" Click="AddClient_Click" Margin="0,0,8,4" />
+							<Button Content="Сохранить" Click="SaveClient_Click" Margin="0,0,8,4" />
+							<Button Content="Удалить" Click="DeleteClient_Click" Margin="0,0,8,4" />
+						</WrapPanel>
+						<TextBlock x:Name="ClientsMessage" TextWrapping="Wrap" />
+					</StackPanel>
+
+					<ListBox x:Name="ClientsList" MaxHeight="300"
+							 SelectionChanged="ClientsList_SelectionChanged">
+						<ListBox.ItemTemplate>
+							<DataTemplate x:DataType="data:Client">
+								<StackPanel Spacing="2" Margin="0,4">
+									<TextBlock Text="{Binding FullName}" FontWeight="Bold" />
+									<TextBlock Text="{Binding Phone, TargetNullValue='Телефон не указан'}" />
+									<TextBlock Text="{Binding RegistrationDate, StringFormat='В клубе с {0:dd.MM.yyyy}'}" />
+									<TextBlock Text="Есть клубная карта" IsVisible="{Binding HasClubCard}" />
+								</StackPanel>
+							</DataTemplate>
+						</ListBox.ItemTemplate>
+					</ListBox>
+
+				</StackPanel>
+			</ScrollViewer>
 		</TabItem>
 
 		<!-- Экран 2: каталог игр -->
 		<TabItem Header="Игры">
-			<ListBox x:Name="GamesList" Margin="8">
-				<ListBox.ItemTemplate>
-					<DataTemplate x:DataType="data:Game">
-						<StackPanel Spacing="2" Margin="0,4">
-							<TextBlock Text="{Binding Title}" FontWeight="Bold" />
-							<StackPanel Orientation="Horizontal" Spacing="4">
-								<TextBlock Text="Игроков:" />
-								<TextBlock Text="{Binding MinPlayers}" />
-								<TextBlock Text="–" />
-								<TextBlock Text="{Binding MaxPlayers}" />
-							</StackPanel>
-							<TextBlock Text="{Binding Complexity, StringFormat='Сложность: {0} из 5'}" />
-							<TextBlock Text="{Binding PricePerDay, StringFormat='Цена: {0} руб./сутки'}" />
-							<TextBlock Text="{Binding Description, TargetNullValue='Описания нет'}"
-									   TextWrapping="Wrap" />
-						</StackPanel>
-					</DataTemplate>
-				</ListBox.ItemTemplate>
-			</ListBox>
+			<ScrollViewer>
+				<StackPanel Margin="8" Spacing="8">
+
+					<StackPanel Spacing="4" MaxWidth="300" HorizontalAlignment="Left">
+						<TextBlock Text="Название *" />
+						<TextBox x:Name="GameTitleBox" />
+						<TextBlock Text="Минимум игроков *" />
+						<TextBox x:Name="GameMinBox" />
+						<TextBlock Text="Максимум игроков *" />
+						<TextBox x:Name="GameMaxBox" />
+						<TextBlock Text="Сложность (от 1 до 5) *" />
+						<TextBox x:Name="GameComplexityBox" />
+						<TextBlock Text="Цена за сутки, руб. *" />
+						<TextBox x:Name="GamePriceBox" />
+						<TextBlock Text="Описание" />
+						<TextBox x:Name="GameDescriptionBox" TextWrapping="Wrap" />
+						<WrapPanel>
+							<Button Content="Добавить" Click="AddGame_Click" Margin="0,0,8,4" />
+							<Button Content="Сохранить" Click="SaveGame_Click" Margin="0,0,8,4" />
+							<Button Content="Удалить" Click="DeleteGame_Click" Margin="0,0,8,4" />
+						</WrapPanel>
+						<TextBlock x:Name="GamesMessage" TextWrapping="Wrap" />
+					</StackPanel>
+
+					<ListBox x:Name="GamesList" MaxHeight="300"
+							 SelectionChanged="GamesList_SelectionChanged">
+						<ListBox.ItemTemplate>
+							<DataTemplate x:DataType="data:Game">
+								<StackPanel Spacing="2" Margin="0,4">
+									<TextBlock Text="{Binding Title}" FontWeight="Bold" />
+									<StackPanel Orientation="Horizontal" Spacing="4">
+										<TextBlock Text="Игроков:" />
+										<TextBlock Text="{Binding MinPlayers}" />
+										<TextBlock Text="–" />
+										<TextBlock Text="{Binding MaxPlayers}" />
+									</StackPanel>
+									<TextBlock Text="{Binding Complexity, StringFormat='Сложность: {0} из 5'}" />
+									<TextBlock Text="{Binding PricePerDay, StringFormat='Цена: {0} руб./сутки'}" />
+									<TextBlock Text="{Binding Description, TargetNullValue='Описания нет'}"
+											   TextWrapping="Wrap" />
+								</StackPanel>
+							</DataTemplate>
+						</ListBox.ItemTemplate>
+					</ListBox>
+
+				</StackPanel>
+			</ScrollViewer>
 		</TabItem>
 
-		<!-- Экран 3: все аренды -->
+		<!-- Экран 3: аренды -->
 		<TabItem Header="Аренды">
-			<ListBox x:Name="RentalsList" Margin="8">
-				<ListBox.ItemTemplate>
-					<DataTemplate x:DataType="data:Rental">
-						<TextBlock Text="{Binding .}" TextWrapping="Wrap" Margin="0,4" />
-					</DataTemplate>
-				</ListBox.ItemTemplate>
-			</ListBox>
+			<ScrollViewer>
+				<StackPanel Margin="8" Spacing="8">
+
+					<StackPanel Spacing="4" MaxWidth="300" HorizontalAlignment="Left">
+						<TextBlock Text="Клиент *" />
+						<ComboBox x:Name="ClientCombo" HorizontalAlignment="Stretch">
+							<ComboBox.ItemTemplate>
+								<DataTemplate x:DataType="data:Client">
+									<TextBlock Text="{Binding FullName}" />
+								</DataTemplate>
+							</ComboBox.ItemTemplate>
+						</ComboBox>
+						<TextBlock Text="Игра *" />
+						<ComboBox x:Name="GameCombo" HorizontalAlignment="Stretch">
+							<ComboBox.ItemTemplate>
+								<DataTemplate x:DataType="data:Game">
+									<TextBlock Text="{Binding Title}" />
+								</DataTemplate>
+							</ComboBox.ItemTemplate>
+						</ComboBox>
+						<TextBlock Text="Дата выдачи *" />
+						<CalendarDatePicker x:Name="RentalStartPicker" />
+						<TextBlock Text="Дата возврата (пусто, если игра ещё у клиента)" TextWrapping="Wrap" />
+						<CalendarDatePicker x:Name="RentalReturnPicker" />
+						<TextBlock Text="Итоговая стоимость, руб. *" />
+						<TextBox x:Name="RentalPriceBox" />
+						<WrapPanel>
+							<Button Content="Добавить" Click="AddRental_Click" Margin="0,0,8,4" />
+							<Button Content="Удалить" Click="DeleteRental_Click" Margin="0,0,8,4" />
+						</WrapPanel>
+						<TextBlock x:Name="RentalsMessage" TextWrapping="Wrap" />
+					</StackPanel>
+
+					<ListBox x:Name="RentalsList" MaxHeight="300">
+						<ListBox.ItemTemplate>
+							<DataTemplate x:DataType="data:Rental">
+								<TextBlock Text="{Binding .}" TextWrapping="Wrap" Margin="0,4" />
+							</DataTemplate>
+						</ListBox.ItemTemplate>
+					</ListBox>
+
+				</StackPanel>
+			</ScrollViewer>
 		</TabItem>
 
 		<!-- Экран 4: игры, которые сейчас у клиентов -->
