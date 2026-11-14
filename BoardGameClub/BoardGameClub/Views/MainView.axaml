@@ -2,17 +2,78 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:vm="using:BoardGameClub.ViewModels"
+             xmlns:vm="clr-namespace:BoardGameClub.ViewModels"
+             xmlns:data="clr-namespace:BoardGameClub.Data;assembly=BoardGameClub.Data"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="BoardGameClub.Views.MainView"
              x:DataType="vm:MainViewModel">
-    <Design.DataContext>
-        <!-- This only sets the DataContext for the previewer in an IDE,
-             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
-        <vm:MainViewModel />
-    </Design.DataContext>
 
-    <TextBox Text="{Binding Greeting}"
-             HorizontalAlignment="Center"
-             VerticalAlignment="Center" />
+	<Design.DataContext>
+		<vm:MainViewModel />
+	</Design.DataContext>
+
+	<TabControl>
+
+		<!-- Экран 1: клиенты -->
+		<TabItem Header="Клиенты">
+			<ListBox x:Name="ClientsList" Margin="8">
+				<ListBox.ItemTemplate>
+					<DataTemplate x:DataType="data:Client">
+						<StackPanel Spacing="2" Margin="0,4">
+							<TextBlock Text="{Binding FullName}" FontWeight="Bold" />
+							<TextBlock Text="{Binding Phone, TargetNullValue='Телефон не указан'}" />
+							<TextBlock Text="{Binding RegistrationDate, StringFormat='В клубе с {0:dd.MM.yyyy}'}" />
+							<TextBlock Text="Есть клубная карта" IsVisible="{Binding HasClubCard}" />
+						</StackPanel>
+					</DataTemplate>
+				</ListBox.ItemTemplate>
+			</ListBox>
+		</TabItem>
+
+		<!-- Экран 2: каталог игр -->
+		<TabItem Header="Игры">
+			<ListBox x:Name="GamesList" Margin="8">
+				<ListBox.ItemTemplate>
+					<DataTemplate x:DataType="data:Game">
+						<StackPanel Spacing="2" Margin="0,4">
+							<TextBlock Text="{Binding Title}" FontWeight="Bold" />
+							<StackPanel Orientation="Horizontal" Spacing="4">
+								<TextBlock Text="Игроков:" />
+								<TextBlock Text="{Binding MinPlayers}" />
+								<TextBlock Text="–" />
+								<TextBlock Text="{Binding MaxPlayers}" />
+							</StackPanel>
+							<TextBlock Text="{Binding Complexity, StringFormat='Сложность: {0} из 5'}" />
+							<TextBlock Text="{Binding PricePerDay, StringFormat='Цена: {0} руб./сутки'}" />
+							<TextBlock Text="{Binding Description, TargetNullValue='Описания нет'}"
+									   TextWrapping="Wrap" />
+						</StackPanel>
+					</DataTemplate>
+				</ListBox.ItemTemplate>
+			</ListBox>
+		</TabItem>
+
+		<!-- Экран 3: все аренды -->
+		<TabItem Header="Аренды">
+			<ListBox x:Name="RentalsList" Margin="8">
+				<ListBox.ItemTemplate>
+					<DataTemplate x:DataType="data:Rental">
+						<TextBlock Text="{Binding .}" TextWrapping="Wrap" Margin="0,4" />
+					</DataTemplate>
+				</ListBox.ItemTemplate>
+			</ListBox>
+		</TabItem>
+
+		<!-- Экран 4: игры, которые сейчас у клиентов -->
+		<TabItem Header="На руках">
+			<ListBox x:Name="ActiveRentalsList" Margin="8">
+				<ListBox.ItemTemplate>
+					<DataTemplate x:DataType="data:Rental">
+						<TextBlock Text="{Binding .}" TextWrapping="Wrap" Margin="0,4" />
+					</DataTemplate>
+				</ListBox.ItemTemplate>
+			</ListBox>
+		</TabItem>
+
+	</TabControl>
 </UserControl>

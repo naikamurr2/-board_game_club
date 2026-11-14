@@ -19,4 +19,8 @@
     </PackageReference>
     <PackageReference Include="CommunityToolkit.Mvvm" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BoardGameClub.Data\BoardGameClub.Data.csproj" />
+  </ItemGroup>
 </Project>
