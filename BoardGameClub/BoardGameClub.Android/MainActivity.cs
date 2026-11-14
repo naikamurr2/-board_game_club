@@ -6,7 +6,7 @@ using Avalonia.Android;
 namespace BoardGameClub.Android;
 
 [Activity(
-    Label = "BoardGameClub.Android",
+    Label = "BoardGameClub",
     Theme = "@style/MyTheme.NoActionBar",
     Icon = "@drawable/icon",
     MainLauncher = true,
